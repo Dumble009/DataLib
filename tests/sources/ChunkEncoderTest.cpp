@@ -39,8 +39,9 @@ TEST(ChunkEncoderTestInt, BasicAssertions)
 
     ASSERT_EQ(idx, 16); // 16バイト読み込み切ったら、次に書き込むインデックスは16番
 
+    // リトルエンディアンなので、低い位のバイトが先頭に来る
     CompareBuffer4byte(buffer, 0, 0x00, 0x00, 0x00, 0x00);
-    CompareBuffer4byte(buffer, 4, 0x00, 0x00, 0x00, 0x01);
-    CompareBuffer4byte(buffer, 8, 0x00, 0x00, 0x00, 0x02);
-    CompareBuffer4byte(buffer, 12, 0x00, 0x00, 0x00, 0x03);
+    CompareBuffer4byte(buffer, 4, 0x01, 0x00, 0x00, 0x00);
+    CompareBuffer4byte(buffer, 8, 0x02, 0x00, 0x00, 0x00);
+    CompareBuffer4byte(buffer, 12, 0x03, 0x00, 0x00, 0x00);
 }

@@ -6,5 +6,6 @@ namespace data
     enum class DataLibErrorCode
     {
         DATA_LIB_SUCCESS = 0,
+        DATA_LIB_OPEN_FILE_FAILED = 1,
     };
 }
