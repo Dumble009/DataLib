@@ -1,8 +1,9 @@
 ﻿// ----------STLのinclude----------
 #include <iostream> // 入出力
-#include "DataLib.h"
 
 int main(void)
 {
-    data::hello_world();
+    std::cout << "Hello World" << std::endl;
+
+    return 0;
 }

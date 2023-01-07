@@ -2,6 +2,8 @@
 
 project(copy_root)
 
+add_subdirectory(encoders)
+
 file(GLOB HEADER_FILES "*.h")
 
 message(STATUS "run root")
