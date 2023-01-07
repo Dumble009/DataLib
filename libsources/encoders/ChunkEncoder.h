@@ -24,7 +24,7 @@ namespace data
                 const std::string &path,
                 int structure)
             {
-                return DataLibErrorCode::DATALIB_SUCCESS;
+                return DataLibErrorCode::DATA_LIB_SUCCESS;
             }
         };
     }
