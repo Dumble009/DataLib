@@ -34,6 +34,11 @@ namespace data
             DataLibErrorCode Encode(const T &data,
                                     const std::string &path,
                                     int option);
+
+#ifdef TESTING
+        public:
+            friend class EncoderTestFriend;
+#endif
         };
 
         template <class T>
