@@ -12,15 +12,20 @@ namespace data
         private:
             std::vector<char> internalBytes; // エンコードしたデータを保存しておくための配列
 
+            // vectorのエンコーダ
             template <class T>
             DataLibErrorCode EncodeImp(const std::vector<T> &data,
                                        std::vector<char> &bytes,
                                        int option);
 
+            // 任意の型のエンコーダ
             template <class T>
             DataLibErrorCode EncodeImp(const T &data,
                                        std::vector<char> &bytes,
                                        int option);
+
+            // internalBytesをファイルに出力する
+            DataLibErrorCode Write(const std::string &path);
 
         public:
             Encoder();
@@ -81,6 +86,27 @@ namespace data
                 // 例外の内容によって細分化した方がいいかも
                 return DataLibErrorCode::DATA_LIB_FAILED_TO_ENCODE;
             }
+        }
+
+        template <class T>
+        DataLibErrorCode Encoder::Encode(const T &data,
+                                         const std::string &path,
+                                         int option)
+        {
+            auto ret = EncodeImp(data, internalBytes, option);
+            if (ret != DataLibErrorCode::DATA_LIB_SUCCESS)
+            {
+                return ret;
+            }
+
+            // エンコードが完了したら得られたバイト列をファイルに書き込む
+            ret = Write(path);
+            if (ret != DataLibErrorCode::DATA_LIB_SUCCESS)
+            {
+                return ret;
+            }
+
+            return DataLibErrorCode::DATA_LIB_SUCCESS;
         }
     }
 }
