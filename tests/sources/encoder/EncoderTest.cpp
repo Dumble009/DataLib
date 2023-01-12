@@ -43,7 +43,8 @@ TEST(EncodeBoolTest, BasicAssertions)
     auto ret = encoder.Encode(boolData, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0x01};
+    char ansData[] = {0x00, 0x00, 0x00, 0x00, // メタデータ
+                      0x01};
     std::vector<char> ans(ansData, std::end(ansData));
     CheckEncodeResult(path, ans);
 }
@@ -59,7 +60,8 @@ TEST(EncodeIntTest, BasicAssertions)
     auto ret = encoder.Encode(intData, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0xEF, 0xCD, 0xAB, 0x89};
+    char ansData[] = {0x00, 0x00, 0x00, 0x00, // メタデータ
+                      0xEF, 0xCD, 0xAB, 0x89};
     std::vector<char> ans(ansData, std::end(ansData));
     CheckEncodeResult(path, ans);
 }
@@ -75,7 +77,8 @@ TEST(EncodeDoubleTest, BasicAssertions)
     auto ret = encoder.Encode(doubleData, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0x00, 0x00, 0x00, 0x00,
+    char ansData[] = {0x00, 0x00, 0x00, 0x00, // メタデータ
+                      0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x50, 0x40};
     std::vector<char> ans(ansData, std::end(ansData));
     CheckEncodeResult(path, ans);
@@ -93,7 +96,8 @@ TEST(EncodeVectorIntTest, BasicAssertions)
     auto ret = encoder.Encode(intVec, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 要素数3が先頭に入るsize_t=long longなので64bit
+    char ansData[] = {0x00, 0x00, 0x00, 0x00,                         // メタデータ
+                      0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 要素数3が先頭に入るsize_t=long longなので64bit
                       0x67, 0x45, 0x23, 0x01,
                       0xEF, 0xCD, 0xAB, 0x89,
                       0x00, 0x00, 0x00, 0x00};
@@ -113,7 +117,8 @@ TEST(EncodeVectorDoubleTest, BasicAssertions)
     auto ret = encoder.Encode(doubleVec, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 要素数1が先頭に入るsize_t=long longなので64bit
+    char ansData[] = {0x00, 0x00, 0x00, 0x00,                         // メタデータ
+                      0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 要素数1が先頭に入るsize_t=long longなので64bit
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x60, 0x40};
     std::vector<char> ans(ansData, std::end(ansData));
     CheckEncodeResult(path, ans);
@@ -140,7 +145,8 @@ TEST(EncodeStructTest, BasicAssertions)
     auto ret = encoder.Encode(stru, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0x01,                   // true
+    char ansData[] = {0x00, 0x00, 0x00, 0x00, // メタデータ
+                      0x01,                   // true
                       0xFF, 0xFF, 0xFF,       // intは4バイトなので、4の倍数になるようにパディングが入る
                       0xEF, 0xCD, 0xAB, 0x89, // 0x89ABCDEF
                       // doubleは8バイトで、ちょうど8バイト目なのでパディングは入らない
@@ -165,7 +171,8 @@ TEST(EncodeVecStructTest, BasicAssertions)
     auto ret = encoder.Encode(struVec, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
 
-    char ansData[] = {0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 要素数2。size_tなので64ビット
+    char ansData[] = {0x00, 0x00, 0x00, 0x00,                         // メタデータ
+                      0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 要素数2。size_tなので64ビット
                       0x01,                                           // true
                       0xFF, 0xFF, 0xFF,                               // intは4バイトなので、4の倍数になるようにパディングが入る
                       0xEF, 0xCD, 0xAB, 0x89,                         // 0x89ABCDEF
