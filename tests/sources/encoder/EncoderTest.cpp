@@ -1,5 +1,6 @@
 ﻿#include <gtest/gtest.h>
 #include "Encoders/Encoder.h"
+#include "../TestStruct.h"
 
 #include <fstream>
 
@@ -38,7 +39,7 @@ TEST(EncodeBoolTest, BasicAssertions)
 
     bool boolData = true;
 
-    const std::string path = "test_datas/testOutputBool";
+    const std::string path = "test_datas/encoder_datas/testOutputBool";
 
     auto ret = encoder.Encode(boolData, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
@@ -55,7 +56,7 @@ TEST(EncodeIntTest, BasicAssertions)
 
     int intData = 0x89ABCDEF;
 
-    const std::string path = "test_datas/testOutputInt";
+    const std::string path = "test_datas/encoder_datas/testOutputInt";
 
     auto ret = encoder.Encode(intData, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
@@ -72,7 +73,7 @@ TEST(EncodeDoubleTest, BasicAssertions)
 
     double doubleData = 64.0; // 0x40500000 00000000
 
-    const std::string path = "test_datas/testOutputDouble";
+    const std::string path = "test_datas/encoder_datas/testOutputDouble";
 
     auto ret = encoder.Encode(doubleData, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
@@ -91,7 +92,7 @@ TEST(EncodeVectorIntTest, BasicAssertions)
     int intDatas[] = {0x01234567, 0x89ABCDEF, 0x00000000};
     std::vector<int> intVec(intDatas, std::end(intDatas));
 
-    const std::string path = "test_datas/testOutputVecInt";
+    const std::string path = "test_datas/encoder_datas/testOutputVecInt";
 
     auto ret = encoder.Encode(intVec, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
@@ -112,7 +113,7 @@ TEST(EncodeVectorDoubleTest, BasicAssertions)
     double doubleDatas[] = {128.0}; // 0x40600000 00000000
     std::vector<double> doubleVec(doubleDatas, std::end(doubleDatas));
 
-    const std::string path = "test_datas/testOutputVecDouble";
+    const std::string path = "test_datas/encoder_datas/testOutputVecDouble";
 
     auto ret = encoder.Encode(doubleVec, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
@@ -124,13 +125,6 @@ TEST(EncodeVectorDoubleTest, BasicAssertions)
     CheckEncodeResult(path, ans);
 }
 
-struct TestStruct
-{
-    bool b;
-    int i;
-    double d;
-};
-
 TEST(EncodeStructTest, BasicAssertions)
 {
     auto encoder = data::encoder::Encoder();
@@ -140,7 +134,7 @@ TEST(EncodeStructTest, BasicAssertions)
     stru.i = 0x89ABCDEF;
     stru.d = 32.0; // 0x40400000 00000000
 
-    const std::string path = "test_datas/testOutputStruct";
+    const std::string path = "test_datas/encoder_datas/testOutputStruct";
 
     auto ret = encoder.Encode(stru, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);
@@ -166,7 +160,7 @@ TEST(EncodeVecStructTest, BasicAssertions)
 
     std::vector<TestStruct> struVec(struDatas, std::end(struDatas));
 
-    const std::string path = "test_datas/testOutputVecStruct";
+    const std::string path = "test_datas/encoder_datas/testOutputVecStruct";
 
     auto ret = encoder.Encode(struVec, path, 0);
     ASSERT_EQ(ret, data::DataLibErrorCode::DATA_LIB_SUCCESS);

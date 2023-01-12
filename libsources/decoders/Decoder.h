@@ -55,7 +55,7 @@ namespace data
                     bytePtr[i] = bytes[*head + i];
                 }
 
-                *head += size;
+                *head += (int)size;
 
                 return DataLibErrorCode::DATA_LIB_SUCCESS;
             }
@@ -96,7 +96,7 @@ namespace data
             }
             catch (...)
             {
-                return DataLibErrorCode::DATA_LIB_FAILED_TO_DECODE;
+                return DataLibErrorCode::DATA_LIB_FAILED_TO_DECODE_VECTOR;
             }
         }
 
@@ -112,7 +112,8 @@ namespace data
                 return ret;
             }
 
-            ret = DecodeImp(data, readBytes, option);
+            int head = 0;
+            ret = DecodeImp(data, readBytes, &head, option);
             if (!IsDataLibActionSucceeded(ret))
             {
                 return ret;
