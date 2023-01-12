@@ -9,5 +9,9 @@
     };
 
     // DataLibErrorCodeを返す関数の結果を受け取り、正常に終了したかどうか判定する
-    inline bool IsDataLibActionSucceeded(DataLibErrorCode code);
+    inline bool IsDataLibActionSucceeded(DataLibErrorCode code)
+    {
+        // inline関数なのでヘッダに記述する必要がある
+        return code == DataLibErrorCode::DATA_LIB_SUCCESS;
+    }
 }

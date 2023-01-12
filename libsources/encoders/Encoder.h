@@ -51,7 +51,7 @@ namespace data
                 auto ret = EncodeImp(elem, bytes, option);
 
                 // 途中でエンコードに失敗した場合はその時点でリターン
-                if (IsDataLibActionSucceeded(ret))
+                if (!IsDataLibActionSucceeded(ret))
                 {
                     return ret;
                 }
@@ -95,20 +95,20 @@ namespace data
         {
             // データ本体の前にメタデータとしてoptionの値を書き込む。
             auto ret = EncodeImp(option, internalBytes, option);
-            if (IsDataLibActionSucceeded(ret))
+            if (!IsDataLibActionSucceeded(ret))
             {
                 return ret;
             }
 
             ret = EncodeImp(data, internalBytes, option);
-            if (IsDataLibActionSucceeded(ret))
+            if (!IsDataLibActionSucceeded(ret))
             {
                 return ret;
             }
 
             // エンコードが完了したら得られたバイト列をファイルに書き込む
             ret = Write(path);
-            if (IsDataLibActionSucceeded(ret))
+            if (!IsDataLibActionSucceeded(ret))
             {
                 return ret;
             }
