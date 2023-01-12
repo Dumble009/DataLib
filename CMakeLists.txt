@@ -11,7 +11,7 @@ project(${ProjectName} VERSION 0.1.0)
 include("C:/MyLib/CMakeModules/deploy.cmake")
 
 enable_testing()
-# add_subdirectory(tests)
+add_subdirectory(tests)
 
 file(GLOB_RECURSE LIB_SOURCES LIST_DIRECTORIES false RELATIVE "${CMAKE_SOURCE_DIR}" CONFIGURE_DEPENDS "libsources/*.cpp")
 file(GLOB_RECURSE EXE_SOURCES LIST_DIRECTORIES false RELATIVE "${CMAKE_SOURCE_DIR}" CONFIGURE_DEPENDS "sources/*.cpp")

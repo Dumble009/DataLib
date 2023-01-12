@@ -23,9 +23,19 @@
 		},
 		{
 			"type":"shell",
+			"label": "run test",
+			"command": "${workspaceRoot}/build/tests/GTest.exe",
+			"dependsOn":["cmake"],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"type":"shell",
 			"label": "run executable",
 			"command": "${workspaceRoot}/build/DataLibTest.exe",
-			"dependsOn":["cmake"],
+			"dependsOn":["run test"],
 			"dependsOrder": "sequence",
 			"group": {
 				"kind": "build",
