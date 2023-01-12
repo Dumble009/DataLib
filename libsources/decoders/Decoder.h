@@ -17,13 +17,15 @@ namespace data
             DataLibErrorCode DecodeImp(T *data,
                                        const std::vector<char> &bytes,
                                        int *head,
-                                       int option);
+                                       int option,
+                                       int metadata);
 
             template <class T>
             DataLibErrorCode DecodeImp(std::vector<T> *data,
                                        const std::vector<char> &bytes,
                                        int *head,
-                                       int option);
+                                       int option,
+                                       int metadata);
 
         public:
             Decoder();
@@ -40,7 +42,8 @@ namespace data
         DataLibErrorCode Decoder::DecodeImp(T *data,
                                             const std::vector<char> &bytes,
                                             int *head,
-                                            int option)
+                                            int option,
+                                            int metadata)
         {
             try
             {
@@ -69,13 +72,14 @@ namespace data
         DataLibErrorCode Decoder::DecodeImp(std::vector<T> *data,
                                             const std::vector<char> &bytes,
                                             int *head,
-                                            int option)
+                                            int option,
+                                            int metadata)
         {
             try
             {
                 // まずはベクタのサイズを取り出す。
                 size_t dataSize = 0;
-                auto ret = DecodeImp(&dataSize, bytes, head, option);
+                auto ret = DecodeImp(&dataSize, bytes, head, option, metadata);
                 if (!IsDataLibActionSucceeded(ret))
                 {
                     return ret;
@@ -85,7 +89,7 @@ namespace data
                 data->resize(dataSize);
                 for (auto itr = data->begin(); itr != data->end(); itr++)
                 {
-                    ret = DecodeImp(itr._Ptr, bytes, head, option);
+                    ret = DecodeImp(itr._Ptr, bytes, head, option, metadata);
                     if (!IsDataLibActionSucceeded(ret))
                     {
                         return ret;
@@ -113,7 +117,13 @@ namespace data
             }
 
             int head = 0;
-            ret = DecodeImp(data, readBytes, &head, option);
+
+            // まずはファイル先頭に入れられているメタデータを読む。
+            // この段階ではメタデータは存在していないので、DecodeImpのmetadata引数には0(デフォルト)を渡しておく
+            int metadata = 0;
+            ret = DecodeImp(&metadata, readBytes, &head, option, 0);
+
+            ret = DecodeImp(data, readBytes, &head, option, metadata);
             if (!IsDataLibActionSucceeded(ret))
             {
                 return ret;
