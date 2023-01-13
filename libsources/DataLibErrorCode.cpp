@@ -19,4 +19,10 @@ namespace data
     {
         return std::string(ERROR_CODE_STRINGS[(int)code]);
     }
+
+    std::ostream &operator<<(std::ostream &os, DataLibErrorCode code)
+    {
+        os << ConvertDataLibErrorCodeToString(code);
+        return os;
+    }
 }

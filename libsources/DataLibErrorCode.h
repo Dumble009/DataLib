@@ -1,4 +1,5 @@
 ﻿#include <string>
+#include <iostream>
 
 namespace data
 {
@@ -13,6 +14,8 @@ namespace data
         DATA_LIB_FAILED_TO_WRITE_DATA = 5,
         DATA_LIB_FAILED_TO_READ_DATA = 6,
     };
+
+    std::ostream &operator<<(std::ostream &os, DataLibErrorCode code);
 
     std::string ConvertDataLibErrorCodeToString(DataLibErrorCode code);
 

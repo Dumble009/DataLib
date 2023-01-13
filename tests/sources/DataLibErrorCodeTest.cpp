@@ -1,6 +1,7 @@
 ﻿#include <gtest/gtest.h>
 
 #include <string>
+#include <sstream>
 
 #include "DataLibErrorCode.h"
 
@@ -9,9 +10,13 @@ void CheckErrorCodeString(data::DataLibErrorCode code,
 {
     std::string result = data::ConvertDataLibErrorCodeToString(code);
     ASSERT_EQ(result, ans);
+
+    std::stringstream sstr;
+    sstr << code;
+    ASSERT_EQ(sstr.str(), ans);
 }
 
-// DataLibErrorCodeを文字列に変換した結果が正しいかどうかチェックする
+// DataLibErrorCodeを文字列に変換した結果やストリームへの挿入が正しいかどうかチェックする
 TEST(ErrorCodeToStringTest, BasicAssertions)
 {
     CheckErrorCodeString(data::DataLibErrorCode::DATA_LIB_SUCCESS,
