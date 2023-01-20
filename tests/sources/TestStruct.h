@@ -1,4 +1,6 @@
-﻿struct TestStruct
+﻿#pragma once
+
+struct TestStruct
 {
     bool b;
     int i;
