@@ -28,7 +28,7 @@ namespace data
                 ifs.seekg(0, std::ifstream::beg); // 読み取り位置を先頭に移動
 
                 readBytes.resize(byteCounts);
-                ifs.read(readBytes.begin()._Ptr, byteCounts);
+                ifs.read(&*(readBytes.begin()), byteCounts);
             }
             catch (...)
             {

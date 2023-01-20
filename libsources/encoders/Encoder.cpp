@@ -21,7 +21,7 @@ namespace data
 
             try
             {
-                ofs.write(internalBytes.begin()._Ptr, sizeof(char) * internalBytes.size());
+                ofs.write(&*(internalBytes.begin()), sizeof(char) * internalBytes.size());
             }
             catch (...)
             {
