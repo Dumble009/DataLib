@@ -4,5 +4,5 @@
 
 int main(void)
 {
-    data::hello_world();
+    std::cout << "hello datalib!" << std::endl;
 }

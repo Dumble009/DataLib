@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-namespace data
-{
-    void hello_world();
-}
+#include "DataLibErrorCode.h"
+#include "decoders/Decoder.h"
+#include "encoders/Encoder.h"
