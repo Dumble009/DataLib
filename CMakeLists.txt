@@ -8,7 +8,6 @@ set(ExecutableName DataLibTest)
 
 project(${ProjectName} VERSION 0.1.0)
 
-include("C:/MyLib/CMakeModules/deploy.cmake")
 
 enable_testing()
 add_subdirectory(tests)
@@ -27,6 +26,7 @@ target_include_directories(${ExecutableName} PUBLIC "sources" "libsources")
 target_link_directories(${ExecutableName} PUBLIC "build")
 target_link_libraries(${ExecutableName} DataLib)
 
+include("C:/MyLib/CMakeModules/deploy.cmake")
 deploy_lib("DataLib" ${LibraryName} ${ProjectName})
 
 add_subdirectory(libsources)
