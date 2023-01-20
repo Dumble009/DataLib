@@ -89,7 +89,7 @@ namespace data
                 data->resize(dataSize);
                 for (auto itr = data->begin(); itr != data->end(); itr++)
                 {
-                    ret = DecodeImp(itr._Ptr, bytes, head, option, metadata);
+                    ret = DecodeImp(&*itr, bytes, head, option, metadata);
                     if (!IsDataLibActionSucceeded(ret))
                     {
                         return ret;
