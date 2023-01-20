@@ -1,6 +1,6 @@
 ﻿#include <gtest/gtest.h>
 
-#include "decoders/Decoder.h"
+#include "Decoders/Decoder.h"
 #include "../TestStruct.h"
 
 #define MAKE_VECTOR(type, vecName, ...) \
